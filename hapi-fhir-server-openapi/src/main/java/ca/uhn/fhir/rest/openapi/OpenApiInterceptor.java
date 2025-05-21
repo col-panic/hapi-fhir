@@ -133,7 +133,7 @@ public class OpenApiInterceptor {
 	public static final String FHIR_XML_RESOURCE = "FHIR-XML-RESOURCE";
 	public static final String PAGE_SYSTEM = "System Level Operations";
 	public static final String PAGE_ALL = "All";
-	public static final FhirContext FHIR_CONTEXT_CANONICAL = FhirContext.forR4();
+	public final FhirContext FHIR_CONTEXT_CANONICAL;
 	public static final String REQUEST_DETAILS = "REQUEST_DETAILS";
 	public static final String RACCOON_PNG = "raccoon.png";
 	private final String mySwaggerUiVersion;
@@ -150,6 +150,11 @@ public class OpenApiInterceptor {
 	 * Constructor
 	 */
 	public OpenApiInterceptor() {
+		this(FhirContext.forR4());
+	}
+
+	public OpenApiInterceptor(FhirContext theFhirContext) {
+		FHIR_CONTEXT_CANONICAL = defaultIfNull(theFhirContext, FhirContext.forR4());
 		mySwaggerUiVersion = initSwaggerUiWebJar();
 
 		myTemplateEngine = new TemplateEngine();
